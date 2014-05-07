@@ -1,0 +1,63 @@
+{
+  "name": "selectKit",
+  "version": "0.0.1",
+  "description": "A jQuery plugin that makes select boxes look nicer.",
+  "author": "Alexander Slansky <alexander@slansky.net> (http://slansky.net)",
+  "license": "MIT",
+  "keywords": [
+    "select",
+    "multiselect",
+    "dropdown",
+    "form",
+    "input",
+    "ui"
+  ],
+  "directories": {
+    "test": "./test"
+  },
+  "main": "./index",
+  "homepage": "http://github.com/aslansky/selectkit",
+  "repository": "git://github.com/aslansky/selectkit.git",
+  "devDependencies": {
+    "gulp-util": "~2.2.14",
+    "gulp": "~3.6.2",
+    "gulp-browserify": "0.5.0",
+    "gulp-uglify": "~0.2.1",
+    "gulp-rename": "~1.2.0",
+    "gulp-header": "~1.0.2",
+    "mocha": "~1.18.2",
+    "testling": "1.6.1",
+    "jquery": "^2.1.1",
+    "gulp-sass": "^0.7.1",
+    "gulp-autoprefixer": "0.0.7"
+  },
+  "scripts": {
+    "test": "node_modules/testling/bin/cmd.js"
+  },
+  "testling": {
+    "browsers": [
+      "iexplore/8.0",
+      "iexplore/9.0",
+      "iexplore/10.0",
+      "chrome/30.0",
+      "chrome/31.0",
+      "chrome/canary",
+      "firefox/24.0",
+      "firefox/25.0",
+      "firefox/nightly",
+      "opera/16.0",
+      "opera/17.0",
+      "opera/next",
+      "safari/5.1",
+      "safari/6.0",
+      "iphone/6.0",
+      "ipad/6.0",
+      "android-browser/4.2"
+    ],
+    "harness": "mocha",
+    "files": "test/main.js"
+  },
+  "dependencies": {
+    "gulp-minify-css": "^0.3.4"
+  }
+}

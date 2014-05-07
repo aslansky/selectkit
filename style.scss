@@ -1,0 +1,123 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+.selectkit {
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  user-select: none;
+  vertical-align: middle;
+  zoom: 1;
+  *display: inline;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .selectkit-display {
+    border: 1px solid #CCC;
+    color: #464646;
+    cursor: pointer;
+    height: 30px;
+    padding: 0 6px;
+    line-height: 30px;
+    transition: 0.15s border-color ease-out;
+    position: relative;
+    width: 100%;
+
+    span {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 95%;
+      white-space: nowrap;
+    }
+
+    i {
+      position: absolute;
+      top: 8px;
+      &.selectkit-caret {
+        right: 10px;
+        &:before {
+          content: '\02C7';
+          font-size: 1.5em;
+        }
+      }
+      &.selectkit-reset {
+        top: -2px;
+        right: 18px;
+        transform: rotate(45deg);
+        &.selectkit-reset-disabled {
+          display: none;
+        }
+        &:before {
+          content: '+';
+          font-size: 1.5em;
+        }
+      }
+    }
+  }
+
+  .selectkit-list {
+    display: none;
+    position: absolute;
+    border: 1px solid #CCC;
+    border-top: 0;
+    top: 100%;
+    transition: 0.15s border-color ease-out;
+    width: 100%;
+
+    .selectkit-choices {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 6px;
+        color: #464646;
+        &.selectkit-choice {
+          cursor: default;
+          &.selectkit-selected {
+            background-color: #b5d5ff;
+          }
+          &:hover {
+            background-color: #AAA;
+            color: #FFF;
+          }
+          &.selectkit-disabled {
+            background-color: #FFF;
+            color: #DDD;
+          }
+        }
+        &.selectkit-group {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .selectkit-search {
+      padding: 3px 6px;
+      width: 100%;
+      input {
+        width: 100%;
+      }
+    }
+  }
+
+  &.selectkit-active {
+    .selectkit-display {
+      border-color: #AAA;
+    }
+    .selectkit-list {
+      border-color: #AAA;
+    }
+  }
+
+  &.selectkit-open {
+    .selectkit-display {
+      border-bottom: 0;
+    }
+  }
+}

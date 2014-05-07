@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>selectkit</title>
+    <link rel="stylesheet" href="dist/style.css">
+  </head>
+
+  <body>
+    <select name="select1" style="width: 150px;" data-placeholder="Select a value">
+      <option></option>
+      <option value="one">One</option>
+      <option value="two" disabled>Two</option>
+      <option value="three" selected>Three</option>
+      <option value="four">Four</option>
+    </select>
+
+    <select name="select2" style="width: 200px;" data-reset="true" data-search="true" data-checkbox="true" multiple data-placeholder="Select a very very long value">
+      <option></option>
+      <option value="one">One</option>
+      <option value="two">Two</option>
+      <option value="three">Three</option>
+      <option value="four">Four</option>
+    </select>
+
+    <select name="select3" style="width: 200px;" data-search="true" data-checkbox="true" data-hide-on-select="true" multiple data-placeholder="Select a very very long value">
+      <option></option>
+      <option value="one">One</option>
+      <option value="two">Two</option>
+      <option value="three">Three</option>
+      <option value="four">Four</option>
+    </select>
+
+    <select name="select4" data-reset="true">
+      <option></option>
+      <optgroup label="Group 1">
+        <option value="one-grp1">One</option>
+        <option value="two-grp1" disabled>Two</option>
+      </optgroup>
+      <optgroup label="Group 2">
+        <option value="three-grp2" selected>Three</option>
+        <option value="four-grp2">Four</option>
+      </optgroup>
+    </select>
+
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      $('select').selectKit();
+
+      // $('[name="select2"]').selectKit('destroy');
+    </script>
+  </body>
+
+</html>

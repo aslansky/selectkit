@@ -1,0 +1,10 @@
+report/
+node_modules/
+.DS_Store
+
+/test/browser.js
+
+/test/test.html
+
+/test/ie/
+/test/lib/
