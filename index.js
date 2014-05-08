@@ -151,7 +151,7 @@
       _this.reset();
     });
     this.$list.delegate('.selectkit-choice', 'mouseup.selectkit', function (evt) {
-      _this.choiceMouseup(this, evt);
+      _this.choiceMouseup(this);
     });
     if (this.$search.length) {
       this.$search.bind('keyup.selectkit', function(evt) {
@@ -194,6 +194,7 @@
   SelectKit.prototype.renderList = function () {
     var _this = this;
     this.$list.empty();
+    console.log(this.data);
     $.each(this.data, function () {
       if (this.group) {
         _this.renderGroup(this);
@@ -206,9 +207,11 @@
   };
 
   SelectKit.prototype.renderGroup = function (data) {
-    var $ele = $('<li class="selectkit-group" data-group-index="' + data.array_index + '">' + data.label + '</li>');
-    $ele.data().data = data;
-    this.$list.append($ele);
+    if (data.search_match !== false) {
+      var $ele = $('<li class="selectkit-group" data-group-index="' + data.array_index + '">' + data.label + '</li>');
+      $ele.data().data = data;
+      this.$list.append($ele);
+    }
   };
 
   SelectKit.prototype.renderOption = function (data) {
@@ -223,8 +226,8 @@
       if (data.search_match === false) {
         return '';
       }
-
-      var $ele = $('<li class="selectkit-choice">' + data.html + '</li>');
+      var text = data.search_text && data.search_text.length > 0 ? data.search_text : data.html;
+      var $ele = $('<li class="selectkit-choice">' + text + '</li>');
       if (this.settings.multi && this.settings.checkbox) {
         $ele.prepend('<input type="checkbox" class="selectkit-check">');
       }
@@ -273,8 +276,8 @@
     $(document).unbind('click.selectkit', this.clickTestAction);
   };
 
-  SelectKit.prototype.choiceMouseup = function (choice, evt) {
-    var choice = $(choice).data().data;
+  SelectKit.prototype.choiceMouseup = function (choice) {
+    choice = $(choice).data().data;
     if (!choice.disabled) {
       if (this.settings.multi && choice.selected) {
         this.deSelectChoice(choice);
@@ -301,7 +304,7 @@
     }
   };
 
-  SelectKit.prototype.deSelectChoice = function (choice, check) {
+  SelectKit.prototype.deSelectChoice = function (choice) {
     var selected = this.getSelected().length;
     choice.selected = false;
     if (!selected) {
@@ -372,7 +375,7 @@
     _ref = this.data;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       option = _ref[_i];
-      option.search_text = option.html;
+      option.search_text = option.html || option.label;
       option.search_match = false;
       results_group = null;
       if (this.includeOptionInResults(option)) {
@@ -432,7 +435,7 @@
       return false;
     }
     if (option.group) {
-      return false;
+      return true;
     }
     if (option.empty) {
       return false;

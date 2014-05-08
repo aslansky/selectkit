@@ -90,8 +90,8 @@ body {
         .selectkit .selectkit-list .selectkit-choices li.selectkit-group {
           font-weight: 600; }
         .selectkit .selectkit-list .selectkit-choices li.selectkit-group-item {
-          padding-left: 12px;
-          padding-right: 12px; }
+          padding-left: 20px;
+          padding-right: 20px; }
     .selectkit .selectkit-list .selectkit-search {
       padding: 3px 6px;
       width: 100%; }
