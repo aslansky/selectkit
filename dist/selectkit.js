@@ -193,6 +193,8 @@
 
     this.data = SelectParser.select_to_array(this.$select.get(0));
     this.$choices = this.renderList();
+
+    this.setText();
   };
 
   SelectKit.prototype.renderList = function () {
@@ -278,50 +280,44 @@
   };
 
   SelectKit.prototype.choiceMouseup = function (choice, evt) {
-    var $choice = $(choice);
-    if (!$choice.data().data.disabled) {
-      if (this.settings.multi && $choice.hasClass('selectkit-selected')) {
-        this.deSelectChoice($choice.data().data, evt.target.nodeName === 'INPUT');
+    var choice = $(choice).data().data;
+    if (!choice.disabled) {
+      if (this.settings.multi && choice.selected) {
+        this.deSelectChoice(choice);
       }
       else {
-        this.selectChoice($choice.data().data, evt.target.nodeName === 'INPUT');
+        this.selectChoice(choice);
       }
     }
   };
 
-  SelectKit.prototype.selectChoice = function (choice, check) {
-    if (!this.settings.multi && this.$choices.filter('.selectkit-selected').length) {
-      this.deSelectChoice(this.$choices.filter('.selectkit-selected').data().data);
+  SelectKit.prototype.selectChoice = function (choice) {
+    var selected = this.getSelected();
+    if (!this.settings.multi && selected) {
+      this.deSelectChoice(this.getSelected()[0]);
     }
-    choice.$ele.addClass('selectkit-selected');
     choice.selected = true;
-    this.$select.find('option').get(choice.options_index).selected = true;
-    if (this.settings.multi && this.settings.checkbox && !check) {
-      choice.$ele.find('input').prop('checked', true);
-    }
-    if (this.$choices.filter('.selectkit-selected').length) {
+    if (selected) {
       this.$display.find('.selectkit-reset').removeClass('selectkit-reset-disabled');
     }
+    this.renderList();
+    this.setText();
     if (this.settings.hideOnSelect || !this.settings.multi) {
       this.hide();
     }
-    this.setText();
   };
 
   SelectKit.prototype.deSelectChoice = function (choice, check) {
-    choice.$ele.removeClass('selectkit-selected');
+    var selected = this.getSelected().length;
     choice.selected = false;
-    this.$select.find('option').get(choice.options_index).selected = false;
-    if (this.settings.multi && this.settings.checkbox && !check) {
-      choice.$ele.find('input').prop('checked', false);
-    }
-    if (!this.$choices.filter('.selectkit-selected').length) {
+    if (!selected) {
       this.$display.find('.selectkit-reset').addClass('selectkit-reset-disabled');
     }
+    this.renderList();
+    this.setText();
     if (this.settings.hideOnSelect || !this.settings.multi) {
       this.hide();
     }
-    this.setText();
   };
 
   SelectKit.prototype.keydownCheck = function (evt) {
@@ -348,13 +344,11 @@
       result = text;
     }
     else {
-      var selected = $.grep(this.data, function (a) {
-        return a.selected;
-      });
-      if (selected.length === 1) {
+      var selected = this.getSelected();
+      if (selected && selected.length === 1) {
         result = selected[0].html;
       }
-      else if (selected.length > 1) {
+      else if (selected && selected.length > 1) {
         result = SelectKit.formatString(this.settings.langMultiSelectedText, selected[0].html, selected.length - 1);
       }
       else {
@@ -363,6 +357,13 @@
     }
     this.$text.html(result);
     return result;
+  };
+
+  SelectKit.prototype.getSelected = function () {
+    var selected = $.grep(this.data, function (a) {
+      return a.selected;
+    });
+    return selected.length ? selected : null;
   };
 
   SelectKit.prototype.searchResults = function () {
