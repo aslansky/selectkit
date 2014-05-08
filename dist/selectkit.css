@@ -56,14 +56,20 @@ body {
           content: '+';
           font-size: 1.5em; }
   .selectkit .selectkit-list {
-    display: none;
-    position: absolute;
+    background-color: #FFF;
     border: 1px solid #CCC;
     border-top: 0;
-    top: 100%;
+    display: none;
+    max-height: 240px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
     -webkit-transition: 0.15s border-color ease-out;
     transition: 0.15s border-color ease-out;
-    width: 100%; }
+    top: 100%;
+    width: 100%;
+    z-index: 50;
+    -webkit-overflow-scrolling: touch; }
     .selectkit .selectkit-list .selectkit-choices {
       list-style: none;
       padding: 0;
@@ -83,6 +89,9 @@ body {
             color: #DDD; }
         .selectkit .selectkit-list .selectkit-choices li.selectkit-group {
           font-weight: 600; }
+        .selectkit .selectkit-list .selectkit-choices li.selectkit-group-item {
+          padding-left: 12px;
+          padding-right: 12px; }
     .selectkit .selectkit-list .selectkit-search {
       padding: 3px 6px;
       width: 100%; }
