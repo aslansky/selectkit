@@ -1,3 +1,6 @@
+// TODO: focus on search field on open
+// TODO: select item when keyup / keydown
+
 (function (factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
@@ -194,7 +197,6 @@
   SelectKit.prototype.renderList = function () {
     var _this = this;
     this.$list.empty();
-    console.log(this.data);
     $.each(this.data, function () {
       if (this.group) {
         _this.renderGroup(this);
@@ -294,6 +296,7 @@
       this.deSelectChoice(this.getSelected()[0]);
     }
     choice.selected = true;
+    this.$select.find('option').get(choice.options_index).selected = true;
     if (selected) {
       this.$display.find('.selectkit-reset').removeClass('selectkit-reset-disabled');
     }
@@ -310,6 +313,7 @@
     if (!selected) {
       this.$display.find('.selectkit-reset').addClass('selectkit-reset-disabled');
     }
+    this.$select.find('option').get(choice.options_index).selected = false;
     this.renderList();
     this.setText();
     if (this.settings.hideOnSelect || !this.settings.multi) {
