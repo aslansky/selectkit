@@ -156,10 +156,10 @@
       _this.toggleDropdown(evt);
     });
 
-    this.$container.find('.selectkit-reset').bind('mouseup.selectkit', function () {
+    this.$container.on('mouseup.selectkit', '.selectkit-reset', function () {
       _this.reset();
     });
-    this.$list.delegate('.selectkit-choice', 'mouseup.selectkit', function (evt) {
+    this.$list.on('mouseup.selectkit', '.selectkit-choice', function () {
       _this.choiceMouseup(this);
     });
     if (this.$search.length) {
@@ -297,17 +297,16 @@
   };
 
   SelectKit.prototype.selectChoice = function (choice) {
-    var selected = this.getSelected();
-    if (!this.settings.multi && selected) {
+    if (!this.settings.multi && this.getSelected()) {
       this.deSelectChoice(this.getSelected()[0]);
     }
     choice.selected = true;
     this.$select.find('option').get(choice.options_index).selected = true;
-    if (selected) {
-      this.$display.find('.selectkit-reset').removeClass('selectkit-reset-disabled');
-    }
     this.renderList();
     this.setText();
+    if (this.getSelected()) {
+      this.$display.find('.selectkit-reset').removeClass('selectkit-reset-disabled');
+    }
     if (this.settings.hideOnSelect || !this.settings.multi) {
       this.hide();
     }
@@ -316,12 +315,12 @@
   SelectKit.prototype.deSelectChoice = function (choice) {
     var selected = this.getSelected().length;
     choice.selected = false;
-    if (!selected) {
-      this.$display.find('.selectkit-reset').addClass('selectkit-reset-disabled');
-    }
     this.$select.find('option').get(choice.options_index).selected = false;
     this.renderList();
     this.setText();
+    if (!selected) {
+      this.$display.find('.selectkit-reset').addClass('selectkit-reset-disabled');
+    }
     if (this.settings.hideOnSelect || !this.settings.multi) {
       this.hide();
     }
