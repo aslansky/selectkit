@@ -319,7 +319,6 @@
     if (this.settings.hideOnSelect || !this.settings.multi) {
       this.hide();
     }
-    this.$select.trigger('change');
   };
 
   SelectKit.prototype.keydownCheck = function (evt) {
