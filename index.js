@@ -135,6 +135,8 @@
     this.$search = [];
     this.open = false;
     this.settings.multi = !!this.$select.attr('multiple');
+    this.settings.disabled = !!this.$select.attr('disabled');
+    this.isDisabled = false;
 
     if (!this.settings.placeholder) {
       this.settings.placeholder = this.$select.attr('placeholder') || (this.settings.multi) ? this.settings.langMultiSelectedText : this.settings.langSingleDefaultText;
@@ -142,6 +144,10 @@
 
     this.render();
     this.initEvents();
+
+    if (this.settings.disabled) {
+      this.disable();
+    }
   };
 
   SelectKit.prototype.initEvents = function () {
@@ -254,11 +260,13 @@
 
   SelectKit.prototype.toggleDropdown = function (evt) {
     evt.stopPropagation();
-    if (this.open) {
-      this.hide();
-    }
-    else {
-      this.show();
+    if (!this.isDisabled) {
+      if (this.open) {
+        this.hide();
+      }
+      else {
+        this.show();
+      }
     }
   };
 
@@ -472,6 +480,16 @@
     this.$select.show();
     this.$container.before(this.$select);
     this.$container.remove();
+  };
+
+  SelectKit.prototype.disable = function () {
+    this.isDisabled = true;
+    this.$display.addClass('selectkit-disabled');
+  };
+
+  SelectKit.prototype.enable = function () {
+    this.isDisabled = false;
+    this.$display.removeClass('selectkit-disabled');
   };
 
   SelectKit.prototype.getSelectWidth = function() {
