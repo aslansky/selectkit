@@ -19,17 +19,17 @@
   "homepage": "http://github.com/aslansky/selectkit",
   "repository": "git://github.com/aslansky/selectkit.git",
   "devDependencies": {
-    "gulp-util": "~2.2.14",
-    "gulp": "~3.6.2",
+    "gulp-util": "~2.2.20",
+    "gulp": "~3.8.6",
     "gulp-browserify": "0.5.0",
-    "gulp-uglify": "~0.2.1",
+    "gulp-uglify": "~0.3.1",
     "gulp-rename": "~1.2.0",
-    "gulp-header": "~1.0.2",
-    "mocha": "~1.18.2",
-    "testling": "1.6.1",
+    "gulp-header": "~1.0.5",
+    "mocha": "~1.20.1",
+    "testling": "1.7.0",
     "jquery": "^2.1.1",
-    "gulp-sass": "^0.7.1",
-    "gulp-autoprefixer": "0.0.7"
+    "gulp-sass": "^0.7.2",
+    "gulp-autoprefixer": "0.0.8"
   },
   "scripts": {
     "test": "node_modules/testling/bin/cmd.js"
@@ -58,6 +58,6 @@
     "files": "test/main.js"
   },
   "dependencies": {
-    "gulp-minify-css": "^0.3.4"
+    "gulp-minify-css": "^0.3.6"
   }
 }
