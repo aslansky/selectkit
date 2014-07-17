@@ -230,9 +230,16 @@
 
   SelectKit.prototype.renderOption = function (data) {
     if (data.empty) {
-      this.empty_choice = data;
+      var selected = this.getSelected();
       if (this.settings.reset) {
-        this.$display.append('<i class="selectkit-reset selectkit-reset-disabled"></i>');
+        if(!this.$display.find('.selectkit-reset').length){
+          this.$display.append('<i class="selectkit-reset selectkit-reset-disabled"></i>');
+        }
+        if(!selected){
+          this.$display.find('.selectkit-reset').addClass('selectkit-reset-disabled');
+        } else {
+          this.$display.find('.selectkit-reset').removeClass('selectkit-reset-disabled');
+        }
       }
       return '';
     }
@@ -323,6 +330,7 @@
 
   SelectKit.prototype.deSelectChoice = function (choice) {
     var selected = this.getSelected().length;
+    console.log(selected);
     choice.selected = false;
     this.$select.find('option').get(choice.options_index).selected = false;
     this.renderList();
