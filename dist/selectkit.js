@@ -230,6 +230,7 @@
 
   SelectKit.prototype.renderOption = function (data) {
     if (data.empty) {
+      this.empty_choice = data;
       var selected = this.getSelected();
       if (this.settings.reset) {
         if(!this.$display.find('.selectkit-reset').length){
