@@ -159,6 +159,11 @@
     this.$container.on('mouseup.selectkit', '.selectkit-reset', function () {
       _this.reset();
     });
+
+    this.$container.on('mousedown.selectkit', '.selectkit-reset', function (evt) {
+      evt.stopPropagation();
+    });
+
     this.$list.on('mouseup.selectkit', '.selectkit-choice', function () {
       _this.choiceMouseup(this);
     });
@@ -325,7 +330,6 @@
 
   SelectKit.prototype.deSelectChoice = function (choice) {
     var selected = this.getSelected().length;
-    console.log(selected);
     choice.selected = false;
     this.$select.find('option').get(choice.options_index).selected = false;
     this.renderList();
