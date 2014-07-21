@@ -482,6 +482,7 @@
     }
     this.$select.find('option').get(this.empty_choice.options_index).selected = true;
     this.$display.find('.selectkit-reset').addClass('selectkit-reset-disabled');
+    this.$select.change();
     this.hide();
   };
 
