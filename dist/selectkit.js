@@ -158,11 +158,14 @@
 
   SelectKit.prototype.initEvents = function () {
     var _this = this;
-    this.$container.find('.selectkit-display').bind('mousedown.selectkit', function (evt) {
-      _this.toggleDropdown(evt);
+
+    this.$container.find('.selectkit-display').on('mousedown.selectkit', function (evt) {
+      if (!$(evt.target).is('.selectkit-reset')) {
+        _this.toggleDropdown(evt);
+      }
     });
 
-    this.$container.on('mouseup.selectkit', '.selectkit-reset', function () {
+    this.$container.on('mouseup.selectkit', '.selectkit-reset', function (evt) {
       _this.reset();
     });
 
@@ -181,7 +184,7 @@
     this.$dropdown.on('mouseleave.selectkit', function (evt) {
       _this.allowBodyScroll();
     });
-    
+
     if (this.$search.length) {
       this.$search.bind('keyup.selectkit', function(evt) {
         _this.keydownCheck(evt);
