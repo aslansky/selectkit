@@ -167,6 +167,15 @@
     this.$list.on('mouseup.selectkit', '.selectkit-choice', function () {
       _this.choiceMouseup(this);
     });
+
+    this.$dropdown.on('mouseenter.selectkit', function (evt) {
+      _this.preventBodyScroll();
+    });
+
+    this.$dropdown.on('mouseleave.selectkit', function (evt) {
+      _this.allowBodyScroll();
+    });
+    
     if (this.$search.length) {
       this.$search.bind('keyup.selectkit', function(evt) {
         _this.keydownCheck(evt);
@@ -504,6 +513,14 @@
   SelectKit.prototype.enable = function () {
     this.isDisabled = false;
     this.$display.removeClass('selectkit-disabled');
+  };
+
+  SelectKit.prototype.preventBodyScroll = function () {
+    $('body, html').css('overflow', 'hidden');
+  };
+
+  SelectKit.prototype.allowBodyScroll = function () {
+    $('body, html').css('overflow', '');
   };
 
   SelectKit.prototype.getSelectWidth = function() {
