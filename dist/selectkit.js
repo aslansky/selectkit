@@ -525,11 +525,16 @@
   };
 
   SelectKit.prototype.preventBodyScroll = function () {
-    $('body, html').css('overflow', 'hidden');
+    var $body = $('body');
+    var oldWidth = $body.innerWidth();
+    $body.css('overflow', 'hidden');
+    $body.width(oldWidth);
   };
 
   SelectKit.prototype.allowBodyScroll = function () {
-    $('body, html').css('overflow', '');
+    var $body = $('body');
+    $body.css('overflow', '');
+    $body.css('width', '');
   };
 
   SelectKit.prototype.getSelectWidth = function() {
