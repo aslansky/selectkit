@@ -169,6 +169,7 @@
 
     this.$list.on('mouseup.selectkit', '.selectkit-choice', function () {
       _this.choiceMouseup(this);
+      _this.allowBodyScroll();
     });
 
     this.$dropdown.on('mouseenter.selectkit', function (evt) {
