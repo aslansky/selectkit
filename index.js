@@ -10,6 +10,12 @@
  * @link http://github.com/aslansky/selectkit
  * @license MIT
  */
+/**
+ * selectKit - A jQuery plugin that makes select boxes look nicer.
+ * @version v0.0.1
+ * @link http://github.com/aslansky/selectkit
+ * @license MIT
+ */
 // TODO: focus on search field on open
 // TODO: select item when keyup / keydown
 
@@ -179,6 +185,10 @@
             }
         });
 
+        this.$container.find('.selectkit-refresh').on('mousedown.selectkit', function (evt) {
+            _this.toggleDropdown(evt);
+        });
+
         this.$container.on('mouseup.selectkit', '.selectkit-reset', function (evt) {
             _this.reset();
         });
@@ -235,7 +245,7 @@
         this.data = SelectParser.select_to_array(this.$select.get(0));
         this.$choices = this.renderList();
         if(this.settings.submit) {
-            this.$dropdown.append('<div class="selectkit-submit"><button type="submit"><span class="icon-refresh"></span>'+this.settings.submitplaceholder+'</button></div>');
+            this.$dropdown.append('<div class="selectkit-submit"><a class="button selectkit-refresh"><span class="icon-refresh"></span>'+this.settings.submitplaceholder+'</a></div>');
         }
         this.setText();
     };
