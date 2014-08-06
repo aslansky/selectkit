@@ -22,7 +22,6 @@
  * @link http://github.com/aslansky/selectkit
  * @license MIT
  */
-// TODO: focus on search field on open
 // TODO: select item when keyup / keydown
 
 (function (factory) {
@@ -166,6 +165,10 @@
             this.settings.placeholder = this.$select.attr('placeholder') || (this.settings.multi) ? this.settings.langMultiSelectedText : this.settings.langSingleDefaultText;
         }
 
+        if (this.settings.reset && !this.settings.resetText) {
+          this.settings.resetText = 'Any ' + this.settings.placeholder;
+        }
+
         if(!this.settings.searchplaceholder){
             this.settings.searchplaceholder = '';
         }
@@ -203,9 +206,11 @@
             evt.stopPropagation();
         });
 
-        this.$list.on('mouseup.selectkit', '.selectkit-choice', function () {
+        this.$list.on('mouseup.selectkit', '.selectkit-choice', function (evt) {
+          if (!$(evt.target).is('.selectkit-reset')) {
             _this.choiceMouseup(this);
             _this.allowBodyScroll();
+          }
         });
 
         this.$dropdown.on('mouseenter.selectkit', function (evt) {
@@ -282,15 +287,8 @@
         if (data.empty) {
             this.empty_choice = data;
             var selected = this.getSelected();
-            if (this.settings.reset) {
-                if(!this.$display.find('.selectkit-reset').length){
-                    this.$display.append('<i class="selectkit-reset selectkit-reset-disabled"></i>');
-                }
-                if(!selected){
-                    this.$display.find('.selectkit-reset').addClass('selectkit-reset-disabled');
-                } else {
-                    this.$display.find('.selectkit-reset').removeClass('selectkit-reset-disabled');
-                }
+            if (this.settings.reset && !this.$list.find('.selectkit-reset').length) {
+              this.$list.prepend('<li class="selectkit-choice selectkit-reset">' + this.settings.resetText + '</li>');
             }
             return '';
         }
@@ -302,6 +300,7 @@
             var $ele = $('<li class="selectkit-choice">' + text + '</li>');
             if (this.settings.multi && this.settings.checkbox) {
                 $ele.prepend('<input type="checkbox" class="selectkit-check">');
+                $ele.addClass('selectkit-choice-checkbox');
             }
             if (data.disabled) {
                 $ele.find('input').prop('disabled', true);
@@ -335,10 +334,16 @@
     };
 
     SelectKit.prototype.show = function () {
+        var _this = this;
         this.$dropdown.show();
         this.open = true;
         this.$container.addClass('selectkit-open');
         this.$container.addClass('selectkit-active');
+        if (this.$search.length) {
+          setTimeout(function () {
+              _this.$search.focus();
+          }, 500);
+        }
         $(document).bind('click.selectkit', this.clickTestAction);
     };
 
@@ -370,9 +375,6 @@
         this.$select.find('option').get(choice.options_index).selected = true;
         this.renderList();
         this.setText();
-        if (this.getSelected()) {
-            this.$display.find('.selectkit-reset').removeClass('selectkit-reset-disabled');
-        }
         if (this.settings.hideOnSelect || !this.settings.multi) {
             this.hide();
         }
@@ -385,9 +387,6 @@
         this.$select.find('option').get(choice.options_index).selected = false;
         this.renderList();
         this.setText();
-        if (!selected) {
-            this.$display.find('.selectkit-reset').addClass('selectkit-reset-disabled');
-        }
         if (this.settings.hideOnSelect || !this.settings.multi) {
             this.hide();
         }
@@ -536,7 +535,6 @@
             });
         }
         this.$select.find('option').get(this.empty_choice.options_index).selected = true;
-        this.$display.find('.selectkit-reset').addClass('selectkit-reset-disabled');
         this.$select.change();
         this.hide();
     };
