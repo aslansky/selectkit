@@ -235,6 +235,9 @@
         var width = this.getSelectWidth();
         this.$select.hide();
         this.$select.wrap('<div class="selectkit"></div>');
+        if (this.settings.cssClass && this.settings.cssClass.length > 0) {
+          this.$select.parent().addClass(this.settings.cssClass);
+        }
         this.$container = this.$select.parent();
         this.$container.css('width', width + 'px');
 
