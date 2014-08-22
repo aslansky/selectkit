@@ -16,6 +16,12 @@
  * @link http://github.com/aslansky/selectkit
  * @license MIT
  */
+/**
+ * selectKit - A jQuery plugin that makes select boxes look nicer.
+ * @version v0.0.1
+ * @link http://github.com/aslansky/selectkit
+ * @license MIT
+ */
 // TODO: select item when keyup / keydown
 
 (function (factory) {
@@ -227,6 +233,8 @@
 
     SelectKit.prototype.render = function () {
         var width = this.getSelectWidth();
+        this.data = SelectParser.select_to_array(this.$select.get(0));
+
         this.$select.hide();
         this.$select.wrap('<div class="selectkit"></div>');
         if (this.settings.cssClass && this.settings.cssClass.length > 0) {
@@ -239,21 +247,27 @@
         this.$display = this.$container.find('.selectkit-display');
         this.$text = this.$display.find('span');
 
-        this.$container.append('<div class="selectkit-list"></div>');
-        this.$dropdown = this.$container.find('.selectkit-list');
+        this.$container.append('<div class="selectkit-foldout"></div>');
+        this.$dropdown = this.$container.find('.selectkit-foldout');
+
+        if (this.data.length <= 5) {
+            this.settings.search = false;
+        }
 
         if (this.settings.search) {
             this.$dropdown.append('<div class="selectkit-search"><input type="text" name="selectkit-search" placeholder="'+this.settings.searchplaceholder+'"></div>');
             this.$search = this.$dropdown.find('input');
         }
 
-        this.$dropdown.append('<ul class="selectkit-choices"></ul>');
+        this.$dropdown.append('<div class="selectkit-list"></div>');
+        this.$dropdownList = this.$dropdown.find('.selectkit-list');
+
+        this.$dropdownList.append('<ul class="selectkit-choices"></ul>');
         this.$list = this.$container.find('.selectkit-choices');
 
-        this.data = SelectParser.select_to_array(this.$select.get(0));
         this.$choices = this.renderList();
         if(this.settings.submit) {
-            this.$dropdown.append('<div class="selectkit-submit"><a class="button selectkit-refresh"><span class="icon-refresh"></span>'+this.settings.submitplaceholder+'</a></div>');
+            this.$dropdown.append('<div class="selectkit-submit"><a class="button selectkit-refresh"><span class="icon-close"></span>'+this.settings.submitplaceholder+'</a></div>');
         }
         this.setText();
     };
