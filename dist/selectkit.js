@@ -4,30 +4,6 @@
  * @link http://github.com/aslansky/selectkit
  * @license MIT
  */
-/**
- * selectKit - A jQuery plugin that makes select boxes look nicer.
- * @version v0.0.1
- * @link http://github.com/aslansky/selectkit
- * @license MIT
- */
-/**
- * selectKit - A jQuery plugin that makes select boxes look nicer.
- * @version v0.0.1
- * @link http://github.com/aslansky/selectkit
- * @license MIT
- */
-/**
- * selectKit - A jQuery plugin that makes select boxes look nicer.
- * @version v0.0.1
- * @link http://github.com/aslansky/selectkit
- * @license MIT
- */
-/**
- * selectKit - A jQuery plugin that makes select boxes look nicer.
- * @version v0.0.1
- * @link http://github.com/aslansky/selectkit
- * @license MIT
- */
 // TODO: select item when keyup / keydown
 
 (function (factory) {
@@ -244,10 +220,13 @@
         this.$select.hide();
         this.$select.wrap('<div class="selectkit"></div>');
         if (this.settings.cssClass && this.settings.cssClass.length > 0) {
-          this.$select.parent().addClass(this.settings.cssClass);
+            this.$select.parent().addClass(this.settings.cssClass);
         }
         this.$container = this.$select.parent();
         this.$container.css('width', width + 'px');
+        if (this.$select.hasClass('error')) {
+            this.$container.addClass('error');
+        }
 
         this.$container.append('<div class="selectkit-display"><span>' + this.settings.placeholder + '</span><i class="selectkit-caret"></i></div>');
         this.$display = this.$container.find('.selectkit-display');
