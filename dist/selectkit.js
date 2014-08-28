@@ -224,8 +224,13 @@
         }
         this.$container = this.$select.parent();
         this.$container.css('width', width + 'px');
+
         if (this.$select.hasClass('error')) {
             this.$container.addClass('error');
+        }
+
+        if (this.$select.attr('id')) {
+            this.$container.attr('id', 'sk-' + this.$select.attr('id'));
         }
 
         this.$container.append('<div class="selectkit-display"><span>' + this.settings.placeholder + '</span><i class="selectkit-caret"></i></div>');
