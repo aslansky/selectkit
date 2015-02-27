@@ -185,16 +185,7 @@
         this.$list.on('mouseup.selectkit', '.selectkit-choice', function (evt) {
           if (!$(evt.target).is('.selectkit-reset')) {
             _this.choiceMouseup(this);
-            _this.allowBodyScroll();
           }
-        });
-
-        this.$dropdown.on('mouseenter.selectkit', function (evt) {
-            _this.preventBodyScroll();
-        });
-
-        this.$dropdown.on('mouseleave.selectkit', function (evt) {
-            _this.allowBodyScroll();
         });
 
         if (this.$search.length) {
@@ -548,19 +539,6 @@
     SelectKit.prototype.enable = function () {
         this.isDisabled = false;
         this.$display.removeClass('selectkit-disabled');
-    };
-
-    SelectKit.prototype.preventBodyScroll = function () {
-        var $body = $('body');
-        var oldWidth = $body.innerWidth();
-        $body.css('overflow', 'hidden');
-        $body.width(oldWidth);
-    };
-
-    SelectKit.prototype.allowBodyScroll = function () {
-        var $body = $('body');
-        $body.css('overflow', '');
-        $body.css('width', '');
     };
 
     SelectKit.prototype.getSelectWidth = function() {

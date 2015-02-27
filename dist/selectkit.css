@@ -3,8 +3,7 @@ body {
   font-size: 14px; }
 
 .selectkit {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   display: inline-block;
   position: relative;
   -webkit-user-select: none;
@@ -15,8 +14,7 @@ body {
   zoom: 1;
   *display: inline; }
   .selectkit * {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box; }
+    box-sizing: border-box; }
   .selectkit .selectkit-display {
     border: 1px solid #CCC;
     color: #464646;
